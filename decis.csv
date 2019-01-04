@@ -1,0 +1,14 @@
+SLA,Elastic?,QOS,Security,Autonomic,Migratable,Efficient
+10,Y,4,L,N,N,Y
+0,N,0,L,Y,Y,Y
+7,N,6,L,N,N,N
+2,Y,1,M,Y,N,Y
+20,N,2,H,Y,N,N
+0,N,0,H,Y,Y,Y
+5,Y,2,M,N,Y,Y
+3,N,1,L,N,Y,Y
+15,Y,5,L,N,N,Y
+0,N,0,L,N,N,N
+1,N,1,H,Y,N,N
+4,Y,1,L,N,Y,Y
+0,N,0,H,Y,N,Y

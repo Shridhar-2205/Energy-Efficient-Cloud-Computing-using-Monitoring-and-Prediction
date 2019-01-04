@@ -1,0 +1,653 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Q\_learning\_battery123}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+        
+        \PY{k+kn}{from} \PY{n+nn}{energy\PYZus{}py} \PY{k}{import} \PY{n}{Runner}
+        \PY{k+kn}{from} \PY{n+nn}{energy\PYZus{}py}\PY{n+nn}{.}\PY{n+nn}{agents} \PY{k}{import} \PY{n}{DQN}
+        \PY{k+kn}{from} \PY{n+nn}{energy\PYZus{}py}\PY{n+nn}{.}\PY{n+nn}{envs} \PY{k}{import} \PY{n}{BatteryEnv}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}  set random seeds for repeatability}
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{42}\PY{p}{)}
+        \PY{n}{tf}\PY{o}{.}\PY{n}{set\PYZus{}random\PYZus{}seed}\PY{p}{(}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}  define a total number of steps for the experiment to run}
+        \PY{n}{TOTAL\PYZus{}STEPS} \PY{o}{=} \PY{l+m+mi}{400000}
+        
+        \PY{n}{agent\PYZus{}config} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{discount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.97}\PY{p}{,}                 \PY{c+c1}{\PYZsh{}  the discount rate}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tau}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.01}\PY{p}{,}                     \PY{c+c1}{\PYZsh{}  parameter that controls the copying of weights from online to target network}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{TOTAL\PYZus{}STEPS}\PY{p}{,}   
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batch\PYZus{}size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{32}\PY{p}{,}                 \PY{c+c1}{\PYZsh{}  size of the minibatches used for learning}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{layers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{,}               \PY{c+c1}{\PYZsh{}  structure of the neural network used to approximate Q(s,a)}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.01}\PY{p}{,}          \PY{c+c1}{\PYZsh{}  controls the stength of weight updates during learning       }
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{epsilon\PYZus{}decay\PYZus{}fraction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}    \PY{c+c1}{\PYZsh{}  a fraction as \PYZpc{} of total steps where epsilon decayed from 1.0 to 0.1}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory\PYZus{}fraction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.7}\PY{p}{,}           \PY{c+c1}{\PYZsh{}  the size of the replay memory as a \PYZpc{} of total steps}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deque}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}           \PY{c+c1}{\PYZsh{}  the replay memory implementation we want}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{process\PYZus{}observation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{standardizer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{process\PYZus{}target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{normalizer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}    
+        
+        \PY{c+c1}{\PYZsh{}  we just need to let our env know where our state.csv and observation.csv are (data\PYZus{}path)}
+        \PY{n}{env} \PY{o}{=} \PY{n}{BatteryEnv}\PY{p}{(}\PY{n}{data\PYZus{}path}\PY{o}{=}\PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}  Runner is a class that helps us with experiments \PYZhy{} tracking rewards, writing environment info to csv and managing TensorBoard}
+        \PY{c+c1}{\PYZsh{}  in this notebook we just use it to track rewards for us}
+        \PY{n}{runner} \PY{o}{=} \PY{n}{Runner}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}  initialize Tensorflow machinery}
+        \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+            \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}  add the tf session and t\PYZhy{}+he environment to the agent config dictionary}
+            \PY{c+c1}{\PYZsh{}  and initialize the agent}
+            \PY{n}{agent\PYZus{}config}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sess}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sess}
+            \PY{n}{agent\PYZus{}config}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{env}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{env}
+            \PY{n}{agent} \PY{o}{=} \PY{n}{DQN}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{agent\PYZus{}config}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}  initial values for the step and episode number}
+            \PY{n}{step}\PY{p}{,} \PY{n}{episode} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}
+        
+            \PY{c+c1}{\PYZsh{}  outer while loop runs through multiple episodes}
+            \PY{k}{while} \PY{n}{step} \PY{o}{\PYZlt{}} \PY{n}{TOTAL\PYZus{}STEPS}\PY{p}{:}
+                \PY{n}{episode} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                \PY{n}{done} \PY{o}{=} \PY{k+kc}{False}
+                \PY{n}{observation} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{reset}\PY{p}{(}\PY{p}{)}
+                
+                \PY{k}{while} \PY{o+ow}{not} \PY{n}{done}\PY{p}{:}
+                    \PY{n}{step} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                    \PY{n}{action} \PY{o}{=} \PY{n}{agent}\PY{o}{.}\PY{n}{act}\PY{p}{(}\PY{n}{observation}\PY{p}{)}
+                    
+                    \PY{n}{next\PYZus{}observation}\PY{p}{,} \PY{n}{reward}\PY{p}{,} \PY{n}{done}\PY{p}{,} \PY{n}{info} \PY{o}{=} \PY{n}{env}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{action}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{}  store the experience}
+                    \PY{n}{agent}\PY{o}{.}\PY{n}{remember}\PY{p}{(}\PY{n}{observation}\PY{p}{,} \PY{n}{action}\PY{p}{,} \PY{n}{reward}\PY{p}{,}
+                                   \PY{n}{next\PYZus{}observation}\PY{p}{,} \PY{n}{done}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{}  moving to the next time step}
+                    \PY{n}{observation} \PY{o}{=} \PY{n}{next\PYZus{}observation}
+                    \PY{c+c1}{\PYZsh{}  saving the reward }
+                    \PY{n}{runner}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{reward}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{}  we don\PYZsq{}t start learning until the memory is half full}
+                    \PY{k}{if} \PY{n}{step} \PY{o}{\PYZgt{}} \PY{n+nb}{int}\PY{p}{(}\PY{n}{agent}\PY{o}{.}\PY{n}{memory}\PY{o}{.}\PY{n}{size} \PY{o}{*} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{}set threshold to start learning}
+                        \PY{n}{train\PYZus{}info} \PY{o}{=} \PY{n}{agent}\PY{o}{.}\PY{n}{learn}\PY{p}{(}\PY{p}{)}
+                
+                \PY{k}{if} \PY{n}{episode} \PY{o}{\PYZpc{}} \PY{l+m+mi}{200} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{progress \PYZhy{} }\PY{l+s+si}{\PYZob{}:.1f\PYZcb{}}\PY{l+s+si}{\PYZpc{} \PYZhy{} e}\PY{l+s+s1}{pisode }\PY{l+s+si}{\PYZob{}:.0f\PYZcb{}}\PY{l+s+s1}{ \PYZhy{} run time }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s1}{ \PYZhy{} episode reward }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s1}{ \PYZhy{} avg rewards }\PY{l+s+si}{\PYZob{}:.2f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{step}\PY{o}{/}\PY{n}{TOTAL\PYZus{}STEPS}\PY{p}{,}
+                                                                                                                                      \PY{n}{episode}\PY{p}{,}
+                                                                                                                                      \PY{n}{runner}\PY{o}{.}\PY{n}{calc\PYZus{}time}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                                                                                                                      \PY{n+nb}{sum}\PY{p}{(}\PY{n}{runner}\PY{o}{.}\PY{n}{ep\PYZus{}rewards}\PY{p}{)}\PY{p}{,}
+                                                                                                                                      \PY{n}{runner}\PY{o}{.}\PY{n}{avg\PYZus{}rew}\PY{p}{)}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}  the report method should be run at the end of each episode}
+                \PY{n}{runner}\PY{o}{.}\PY{n}{report}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{episode}\PY{p}{,}
+                               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{step}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{step}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+copying ['hidden\_layer\_1', 'Variable:0'] to ['hidden\_layer\_1', 'Variable:0']
+copying ['hidden\_layer\_1', 'Variable\_1:0'] to ['hidden\_layer\_1', 'Variable\_1:0']
+copying ['input\_layer', 'Variable:0'] to ['input\_layer', 'Variable:0']
+copying ['input\_layer', 'Variable\_1:0'] to ['input\_layer', 'Variable\_1:0']
+copying ['output\_layer', 'Variable:0'] to ['output\_layer', 'Variable:0']
+copying ['output\_layer', 'Variable\_1:0'] to ['output\_layer', 'Variable\_1:0']
+progress - 2.4\% - episode 200 - run time 0.19 - episode reward -34.40 - avg rewards -38.02
+progress - 4.7\% - episode 400 - run time 0.34 - episode reward -7.33 - avg rewards -37.40
+progress - 7.0\% - episode 600 - run time 0.49 - episode reward -45.79 - avg rewards -36.66
+progress - 9.4\% - episode 800 - run time 0.65 - episode reward -44.65 - avg rewards -40.74
+progress - 11.8\% - episode 1000 - run time 0.81 - episode reward -8.98 - avg rewards -40.08
+progress - 14.1\% - episode 1200 - run time 1.03 - episode reward -19.72 - avg rewards -43.82
+progress - 16.4\% - episode 1400 - run time 1.31 - episode reward -13.85 - avg rewards -52.03
+progress - 18.8\% - episode 1600 - run time 1.65 - episode reward -39.32 - avg rewards -57.91
+progress - 21.1\% - episode 1800 - run time 2.06 - episode reward -49.08 - avg rewards -57.82
+progress - 23.5\% - episode 2000 - run time 2.52 - episode reward -67.54 - avg rewards -69.21
+progress - 25.9\% - episode 2200 - run time 3.03 - episode reward -109.15 - avg rewards -75.00
+progress - 28.2\% - episode 2400 - run time 3.61 - episode reward -91.06 - avg rewards -84.17
+progress - 30.6\% - episode 2600 - run time 4.25 - episode reward -118.56 - avg rewards -92.31
+progress - 32.9\% - episode 2800 - run time 4.94 - episode reward -131.42 - avg rewards -93.72
+progress - 35.2\% - episode 3000 - run time 5.96 - episode reward -44.71 - avg rewards -91.67
+progress - 37.6\% - episode 3200 - run time 9.28 - episode reward -1.32 - avg rewards -48.98
+progress - 40.0\% - episode 3400 - run time 12.67 - episode reward -0.49 - avg rewards -1.19
+progress - 42.3\% - episode 3600 - run time 16.09 - episode reward 0.00 - avg rewards -0.71
+progress - 44.6\% - episode 3800 - run time 19.53 - episode reward 0.00 - avg rewards -0.69
+progress - 47.0\% - episode 4000 - run time 23.13 - episode reward -0.51 - avg rewards -1.15
+progress - 49.4\% - episode 4200 - run time 27.01 - episode reward 0.00 - avg rewards -0.68
+progress - 51.7\% - episode 4400 - run time 30.86 - episode reward -1.59 - avg rewards -0.78
+progress - 54.0\% - episode 4600 - run time 34.65 - episode reward -0.17 - avg rewards -0.89
+progress - 56.4\% - episode 4800 - run time 38.48 - episode reward 0.00 - avg rewards -0.76
+progress - 58.8\% - episode 5000 - run time 42.30 - episode reward -1.21 - avg rewards -0.86
+progress - 61.1\% - episode 5200 - run time 46.11 - episode reward 0.00 - avg rewards -1.01
+progress - 63.5\% - episode 5400 - run time 49.46 - episode reward -10.12 - avg rewards -1.08
+progress - 65.8\% - episode 5600 - run time 52.84 - episode reward -0.25 - avg rewards -0.99
+progress - 68.2\% - episode 5800 - run time 56.20 - episode reward -1.51 - avg rewards -1.21
+progress - 70.5\% - episode 6000 - run time 59.57 - episode reward -1.71 - avg rewards -0.73
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyboardInterrupt                         Traceback (most recent call last)
+
+        <ipython-input-4-1b030228dbea> in <module>()
+         39             \#  we don't start learning until the memory is half full
+         40             if step > int(agent.memory.size * 0.5):  \#set threshold to start learning
+    ---> 41                 train\_info = agent.learn()
+         42 
+         43         if episode \% 200 == 0:
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}cloud3may\textbackslash{}energy\_py\textbackslash{}agents\textbackslash{}agent.py in learn(self, **kwargs)
+        143         """
+        144         logger.debug('Agent is learning')
+    --> 145         return self.\_learn(**kwargs)
+        146 
+        147     def remember(self, observation, action, reward, next\_observation, done):
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}cloud3may\textbackslash{}energy\_py\textbackslash{}agents\textbackslash{}dqn.py in \_learn(self)
+        358         logger.debug('learning - rewards \{\}'.format(rewards))
+        359         logger.debug('learning - terminals \{\}'.format(terminals))
+    --> 360         logger.debug('learning - next\_obs\_q \{\}'.format(next\_obs\_q))
+        361         logger.debug('learning - importance\_weights \{\}'.format(importance\_weights))
+        362 
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}core\textbackslash{}arrayprint.py in array\_str(a, max\_line\_width, precision, suppress\_small)
+       1400         return str(a[()])
+       1401 
+    -> 1402     return array2string(a, max\_line\_width, precision, suppress\_small, ' ', "")
+       1403 
+       1404 def set\_string\_function(f, repr=True):
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}core\textbackslash{}arrayprint.py in array2string(a, max\_line\_width, precision, suppress\_small, separator, prefix, style, formatter, threshold, edgeitems, sign, floatmode, suffix, **kwarg)
+        620         return "[]"
+        621 
+    --> 622     return \_array2string(a, options, separator, prefix)
+        623 
+        624 
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}core\textbackslash{}arrayprint.py in wrapper(self, *args, **kwargs)
+        420             repr\_running.add(key)
+        421             try:
+    --> 422                 return f(self, *args, **kwargs)
+        423             finally:
+        424                 repr\_running.discard(key)
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}core\textbackslash{}arrayprint.py in \_array2string(a, options, separator, prefix)
+        451     lst = \_formatArray(a, format\_function, options['linewidth'],
+        452                        next\_line\_prefix, separator, options['edgeitems'],
+    --> 453                        summary\_insert, options['legacy'])
+        454     return lst
+        455 
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}core\textbackslash{}arrayprint.py in \_formatArray(a, format\_function, line\_width, next\_line\_prefix, separator, edge\_items, summary\_insert, legacy)
+        747         index=(),
+        748         hanging\_indent=next\_line\_prefix,
+    --> 749         curr\_width=line\_width)
+        750 
+        751 
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}numpy\textbackslash{}core\textbackslash{}arrayprint.py in recurser(index, hanging\_indent, curr\_width)
+        719         else:
+        720             s = ''
+    --> 721             line\_sep = separator.rstrip() + '\textbackslash{}n'*(axes\_left - 1)
+        722 
+        723             for i in range(leading\_items):
+    
+
+        KeyboardInterrupt: 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}  plot rewards}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{n}{episode\PYZus{}rewards} \PY{o}{=} \PY{n}{runner}\PY{o}{.}\PY{n}{global\PYZus{}rewards}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{episode\PYZus{}rewards}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} [<matplotlib.lines.Line2D at 0x2a4fb1954a8>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}  we can also look at what happened in our last episode}
+        \PY{n}{ep\PYZus{}hist} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{o}{.}\PY{n}{from\PYZus{}dict}\PY{p}{(}\PY{n}{info}\PY{p}{)}
+        \PY{n}{fd} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{o}{.}\PY{n}{from\PYZus{}dict}\PY{p}{(}\PY{n}{info}\PY{p}{)}
+        
+        \PY{n}{fd}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{done}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cpu\PYZus{}utilization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gross\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{losses}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{net\PYZus{}stored}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{next\PYZus{}observation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{next\PYZus{}state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{observation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{old\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reward}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{fd} \PY{o}{=}\PY{n}{fd}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{done}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}fd.columns = [\PYZsq{}action\PYZsq{}, \PYZsq{}done\PYZsq{},\PYZsq{}cpu\PYZus{}util\PYZsq{}]}
+        \PY{n}{fd}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(fd[\PYZsq{}done\PYZsq{}],fd[\PYZsq{}action\PYZsq{}])}
+        \PY{c+c1}{\PYZsh{}ep\PYZus{}hist.head()}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}                       action  cpu\_utilization  gross\_rate  losses  net\_stored  \textbackslash{}
+        0  [1.6842105263157894, 2.0]        94.366667         0.0     0.0         0.0   
+        1  [1.6842105263157894, 2.0]        94.700000         0.0     0.0         0.0   
+        2  [1.6842105263157894, 2.0]        94.400000         0.0     0.0         0.0   
+        3  [1.6842105263157894, 2.0]        94.333333         0.0     0.0         0.0   
+        4  [1.6842105263157894, 2.0]        94.533333         0.0     0.0         0.0   
+        
+           new\_rate                                   next\_observation  \textbackslash{}
+        0       0.0  [[50.0, 50.0, 50.0, 100.0, 100.0, 1.0, 1.0, 0.0]]   
+        1       0.0  [[50.0, 50.0, 100.0, 100.0, 100.0, 2.0, 1.0, 0{\ldots}   
+        2       0.0  [[50.0, 100.0, 100.0, 100.0, 100.0, 3.0, 1.0, {\ldots}   
+        3       0.0  [[100.0, 100.0, 100.0, 100.0, 100.0, 4.0, 1.0,{\ldots}   
+        4       0.0  [[100.0, 100.0, 100.0, 100.0, -50.0, 5.0, 1.0,{\ldots}   
+        
+                     next\_state                                        observation  \textbackslash{}
+        0         [[94.7, 0.0]]   [[50.0, 50.0, 50.0, 50.0, 100.0, 0.0, 1.0, 0.0]]   
+        1         [[94.4, 0.0]]  [[50.0, 50.0, 50.0, 100.0, 100.0, 1.0, 1.0, 0.0]]   
+        2  [[94.33333333, 0.0]]  [[50.0, 50.0, 100.0, 100.0, 100.0, 2.0, 1.0, 0{\ldots}   
+        3  [[94.53333333, 0.0]]  [[50.0, 100.0, 100.0, 100.0, 100.0, 3.0, 1.0, {\ldots}   
+        4  [[94.16666667, 0.0]]  [[100.0, 100.0, 100.0, 100.0, 100.0, 4.0, 1.0,{\ldots}   
+        
+           old\_rate  reward                 state  steps  
+        0       0.0    -0.0  [[94.36666667, 0.0]]      1  
+        1       0.0    -0.0         [[94.7, 0.0]]      2  
+        2       0.0    -0.0         [[94.4, 0.0]]      3  
+        3       0.0    -0.0  [[94.33333333, 0.0]]      4  
+        4       0.0    -0.0  [[94.53333333, 0.0]]      5  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}plt.plot(ep\PYZus{}hist.loc[:, \PYZsq{}new\PYZus{}charge\PYZsq{}])}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fd}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{new\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} [<matplotlib.lines.Line2D at 0x2a4fb210b38>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss function}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fd}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{losses}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loss function
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} [<matplotlib.lines.Line2D at 0x2a4fb2783c8>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}plt.plot(ep\PYZus{}hist.loc[:, \PYZsq{}electricity\PYZus{}price\PYZsq{}])}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{fd}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cpu\PYZus{}utilization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} [<matplotlib.lines.Line2D at 0x221e84d72b0>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{ep\PYZus{}hist}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reward}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} -0.2570175440263158
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df1}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C:}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{Users}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{DELL}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{Anaconda3}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{cloud2may}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{state1.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CPU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{101}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df1}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}    Time   CPU
+         0   0.0  34.0
+         1   5.0  23.0
+         2  10.0  23.0
+         3  15.0  34.0
+         4  20.0  56.0
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
